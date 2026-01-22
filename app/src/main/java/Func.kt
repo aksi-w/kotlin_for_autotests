@@ -11,11 +11,11 @@ fun main() {
     sayHello()
     sayHello("Polina")
      */
-    /*
+
     val maxFirstPair = 3 isGreater 7
     val maxSecondPair = 10 isGreater 5
     println("$maxFirstPair, $maxSecondPair")
-     */
+
     // println(generateSequence(6))
     task5()
 }
@@ -40,12 +40,15 @@ fun sayHello(name: String = "World") {
 Создайте инфиксную функцию isGreater , которая принимает два числа и возвращает true, если первое число
 больше второго, и false в противном случае. Затем используйте эту функцию, сравнив две пары чисел.
 */
-infix fun Int.isGreater(other: Int): Boolean {
+infix fun Int.isGreater1(other: Int): Boolean {
     var flag = false
     if (this > other) {
         flag = true
     }
     return flag
+}
+infix fun Int.isGreater(other: Int): Boolean {
+    return this > other
 }
 
 /* Задание 4 Функции и рекурсия:
@@ -66,20 +69,26 @@ tailrec fun generateSequence(n: Int, i: Int = 1) {
 */
 fun task5(){
     val names = mutableListOf("Polina", "Vlad", "Kirill", "Masha", "Nastya")
+
     names.let {
         println(it)
         it.add("Sasha")
     }
-    names
-        .also {println(it)}
-        .remove("Nastya")
+
+    names.also {
+        println(it)
+        it.remove("Nastya")
+    }
+
     names.run {
         println(this)
         add("Vova")
     }
-    names
-        .apply { println(this) }
-        .remove("Vlad")
+
+    names.apply {
+        println(this)
+        remove("Vlad")
+    }
 
     with(names){
         println(this)
