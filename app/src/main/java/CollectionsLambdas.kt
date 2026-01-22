@@ -2,6 +2,7 @@
 fun main() {
 
     //carTask7()
+    task2()
 
     //println(task3(5) { "$it and ${square(it)}" })
     println(lazyValue)
@@ -17,9 +18,7 @@ fun main() {
     println("*: ${calculate(10, 5, mult)}")
     println("/: ${calculate(10, 5, div)}")
 
-    println(sum)
-    println(max)
-    println(min)
+    task10()
 }
 
 /** Задание 1. Коллекции и Лямбды
@@ -28,7 +27,7 @@ fun main() {
  */
 fun task1() {
     val n = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-    val chet = n.filter { it % 2 == 0 }.map { it * it }
+    val chet = n.filter { it % 2 == 0 }.map { it * 2 }
     println(chet)
 }
 
@@ -38,9 +37,9 @@ fun task1() {
  */
 
 fun task2() {
-    val n: List<String> = listOf("odin", "dva", "tri", "chetyre", "pyat")
-    val otv = n.map { it.length }
-    println(otv)
+    val numbers = listOf("odin", "dva", "tri", "chetyre", "pyat")
+    val len = numbers.map { it.length }
+    println(len)
 }
 
 /** Задание 3. Коллекции и Лямбды
@@ -65,30 +64,12 @@ val square: (Int) -> Int = { a -> a * a }
 Создайте объект класса Person со свойствами name и age. Создайте список из нескольких таких объектов.
 Используйте filter и map чтобы получить список имен тех людей, которым больше 18 лет.
  */
-
-class Person5 {
-    var name: String = "Polina"
-        get() = field
-        set(value) {
-            field = value
-        }
-
-    var age: Int = 21
-        get() = field
-        set(value) {
-            if (value >= 0) {
-                field = value
-            } else {
-                println("Error")
-            }
-        }
-}
-
+data class Person55(val name: String, val age: Int)
 fun task55() {
     val people = listOf(
-        Person5().apply { name = "Polina"; age = 21 },
-        Person5().apply { name = "Anna"; age = 17 },
-        Person5().apply { name = "Ivan"; age = 25 }
+        Person55("Polina", 21),
+        Person55("Anna", 17),
+        Person55("Ivan", 25)
     )
 
     val adultNames = people
@@ -156,7 +137,13 @@ fun calculate(a: Int, b: Int, operation: (Int, Int) -> Int): Int {
 Создайте коллекцию чисел и используйте fold или reduce чтобы посчитать их сумму, минимальное и
 максимальное значения.
  */
-val n = listOf(345, 54, 1, 34, 3, 9)
-val sum = n.fold(0){acc, i -> acc+i}
-val min = n.reduce { acc, i -> if (i < acc) i else acc }
-val max = n.reduce { acc, i -> if (i > acc) i else acc }
+fun task10(){
+    val n = listOf(345, 54, 1, 34, 3, 9)
+    val sum = n.fold(0){acc, i -> acc+i}
+    val min = n.reduce { acc, i -> if (i < acc) i else acc }
+    val max = n.reduce { acc, i -> if (i > acc) i else acc }
+    println("Sum: $sum")
+    println("Min: $min")
+    println("Max: $max")
+}
+
