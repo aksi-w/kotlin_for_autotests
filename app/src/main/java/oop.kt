@@ -1,14 +1,10 @@
 
 fun main() {
     /* задание 1
-    val car1 = Car()
-    car1.model = "Nissan"
-    car1.color = "Red"
-    car1.drive()
-    val car2 = Car()
-    car2.model = "Toyota"
-    car2.year = 2020
-    car2.drive()
+     val car1 = Car("Nissan", "Red", 2020)
+     car1.drive()
+     val car2 = Car("Toyota", "Blue", 2021)
+     car2.drive()
      */
 
     /* Задание 2
@@ -51,12 +47,11 @@ fun main() {
     println(mathUtils.add(2 , 1))
      */
 
-    /*Задание 8
-    val rectangle = Rectangle()
-    rectangle.area(2, 3)
-    val circle = Circle()
-    circle.area(3, 3)
-     */
+    // Задание 8
+    val circle = Circle(3.0)
+    println(circle.area())
+    val rectangle = Rectangle(2.0, 3.0)
+    println(rectangle.area())
 
     /* Задание 9
     val bird = Bird()
@@ -73,22 +68,18 @@ fun main() {
     user.printInfo()
      */
 
-    /*Задание 11
-    val res1 = calculate(MathOperation.Add, 10, 5)
+    //Задание 11
+    val res1 = calculate(Add, 10, 5)
     println(res1)
-    val res2 = calculate(MathOperation.Divide, 10, 5)
+    val res2 = calculate(Divide, 10, 5)
     println(res2)
-     */
 
-    /*Задание 12
-    val bat = Bat()
-    bat.breastfeed()
-    bat.fly()
 
+    //Задание 12
     val bat = Bat()
     bat.performBreastfeed()
     bat.performFly()
-     */
+
 
     /*Задание 13
     val engine = Engine()
@@ -113,10 +104,7 @@ fun main() {
 Создайте класс Car с полями model, color, year и методом drive(). Создайте несколько объектов этого класса
 и вызовите их метод drive().
  */
-class Car {
-    var model: String = "Chevrolet"
-    var color: String = "black"
-    var year: Int = 2026
+class Car(var model: String, var color: String, var year: Int) {
     fun drive() {
         println("Driving")
     }
@@ -126,14 +114,14 @@ class Car {
 Создайте enum class DayOfWeek, содержащий все дни недели. Выведите все дни недели,
 используя свойства values и name этого enum.
  */
-enum class DayOfWeek(val day: String) {
-    MONDAY("MONDAY"),
-    TUESDAY("TUESDAY"),
-    WEDNESDAY("WEDNESDAY"),
-    THURSDAY("THURSDAY"),
-    FRIDAY("FRIDAY"),
-    SATURDAY("SATURDAY"),
-    SUNDAY("SUNDAY");
+enum class DayOfWeek {
+    MONDAY,
+    TUESDAY,
+    WEDNESDAY,
+    THURSDAY,
+    FRIDAY,
+    SATURDAY,
+    SUNDAY
 }
 
 /** Задание 3. ООП
@@ -166,15 +154,9 @@ class Person {
 управлять доступом к этим свойствам извне класса. Например, вы можете реализовать проверку возраста
 в сеттере, чтобы убедиться, что возраст неотрицательный.
  */
-class Person5 {
+class Person5 () {
     var name: String = "Polina"
-        get() = field
-        set(value) {
-            field = value
-        }
-
     var age: Int = 21
-        get() = field
         set(value) {
             if (value >= 0) {
                 field = value
@@ -224,18 +206,18 @@ class MathUtils {
 реализующие этот метод. Создайте объекты Circle и Rectangle и выведите их площадь.
  */
 abstract class Shape {
-    abstract fun area(a: Int, b: Int)
+    abstract fun area(): Double
 }
 
-class Circle : Shape() {
-    override fun area(a: Int, b: Int) {
-        return println(a * (b * b))
+class Circle(val radius: Double) : Shape() {
+    override fun area(): Double {
+        return Math.PI * radius * radius
     }
 }
 
-class Rectangle : Shape() {
-    override fun area(a: Int, b: Int) {
-        return println(a * b)
+class Rectangle(val width: Double, val height: Double) : Shape() {
+    override fun area(): Double {
+        return width * height
     }
 }
 
@@ -288,37 +270,51 @@ data class User(val name: String, val age: Int) {
 операции (например, Add, Subtract, Multiply, Divide). Создайте функцию, которая принимает
 MathOperation и два числа, и выполняет соответствующую операцию.
  */
-sealed class MathOperation {
-    abstract fun matan(a: Int, b: Int): Int
+sealed class MathOperation
+object Add : MathOperation()
+object Subtract : MathOperation()
+object Multiply : MathOperation()
+object Divide : MathOperation()
 
-    object Add : MathOperation() {
-        override fun matan(a: Int, b: Int): Int {
-            return a + b
-        }
-    }
-
-    object Subtract : MathOperation() {
-        override fun matan(a: Int, b: Int): Int {
-            return a - b
-        }
-    }
-
-    object Multiply : MathOperation() {
-        override fun matan(a: Int, b: Int): Int {
-            return a * b
-        }
-    }
-
-    object Divide : MathOperation() {
-        override fun matan(a: Int, b: Int): Int {
-            return a / b
-        }
-    }
+fun calculate(operation: MathOperation, a: Int, b: Int): Int = when(operation) {
+    is Add -> a + b
+    is Subtract -> a - b
+    is Multiply -> a * b
+    is Divide -> a / b
 }
 
-fun calculate(operation: MathOperation, a: Int, b: Int): Int {
-    return operation.matan(a, b)
-}
+
+//sealed class MathOperation {
+//    abstract fun matan(a: Int, b: Int): Int
+//
+//    object Add : MathOperation() {
+//        override fun matan(a: Int, b: Int): Int {
+//            return a + b
+//        }
+//    }
+//
+//    object Subtract : MathOperation() {
+//        override fun matan(a: Int, b: Int): Int {
+//            return a - b
+//        }
+//    }
+//
+//    object Multiply : MathOperation() {
+//        override fun matan(a: Int, b: Int): Int {
+//            return a * b
+//        }
+//    }
+//
+//    object Divide : MathOperation() {
+//        override fun matan(a: Int, b: Int): Int {
+//            return a / b
+//        }
+//    }
+//}
+//
+//fun calculate(operation: MathOperation, a: Int, b: Int): Int {
+//    return operation.matan(a, b)
+//}
 
 /** Задание 12. ООП
 Создайте два класса: Mammal и CanFly. В классе Mammal определите метод breastfeed(), а в классе
@@ -371,8 +367,8 @@ class BatFlyBehavior : FlyBehavior {
 }
 
 class Bat {
-    private var mammalBehavior: MammalBehavior? = null
-    private var flyBehavior: FlyBehavior? = null
+    private var mammalBehavior: MammalBehavior = BatMammalBehavior()
+    private var flyBehavior: FlyBehavior = BatFlyBehavior()
 
     init {
         mammalBehavior = BatMammalBehavior()
@@ -380,11 +376,11 @@ class Bat {
     }
 
     fun performBreastfeed() {
-        mammalBehavior?.breastfeed()
+        mammalBehavior.breastfeed()
     }
 
     fun performFly() {
-        flyBehavior?.fly()
+        flyBehavior.fly()
     }
 }
 
@@ -425,17 +421,17 @@ interface Repository<T> {
     fun getAll(): List<T>
 }
 
-class UserRepository: Repository<User>{
-    val user = mutableListOf<User>()
+class UserRepository : Repository<User> {
+    val users = mutableListOf<User>()
     override fun save(item: User) {
-        user.add(item)
+        users.add(item)
     }
 
     override fun delete(item: User) {
-        user.remove(item)
+        users.remove(item)
     }
 
     override fun getAll(): List<User> {
-        return user
+        return users.toList()
     }
 }
