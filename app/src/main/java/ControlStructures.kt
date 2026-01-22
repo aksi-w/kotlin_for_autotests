@@ -2,7 +2,13 @@
 fun main() {
     //check()
     //checkWithWhen()
-    task4b()
+    // task4b()
+
+    /*Задание 3а
+    val numbers = arrayOf(1, 20, 13, 0, 13, 6, -27, 8)
+    val res = task3a(numbers)
+    println(res)
+     */
 }
 
 /* Задание 1 Условные операторы:
@@ -45,16 +51,15 @@ fun checkWithWhen() {
 */
 fun task2a() {
     val m = arrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-    var k = 0
     for (i in m) {
-        k = i * i
+        val k = i * i
         println("i and i^2: $i, $k")
     }
     var i = 0
     var n = 0
     while (i < m.size) {
         n = m[i]
-        k = m[i] * m[i] * m[i]
+        val k = m[i] * m[i] * m[i]
         println("i and i^3: $n, $k")
         i += 1
     }
@@ -73,29 +78,28 @@ fun task2b() {
 Напишите функцию, которая принимает массив чисел и возвращает сумму только тех чисел, которые больше 10.
 Если обнаруживается число меньше 0, функция должна немедленно прекратить обработку и вернуть текущую сумму (используйте return).
 */
-fun task3a() {
-    val m = arrayOf(1, 20, 13, 0, 13, 6, -27, 8)
+fun task3a(numbers: Array<Int>): Int {
     var sum = 0
-    for (i in m) {
-        if (i > 10) {
-            sum += i
-        } else if (i < 0) {
-            return println(sum)
+    for (number in numbers) {
+        if (number > 10) {
+            sum += number
+        } else if (number < 0) {
+            return sum
         }
     }
-    return println(sum)
+    return sum
 }
 
 /* Задание 3.b Return, Break, Continue:
 Напишите цикл, который выводит числа от 1 до 10, но пропускает числа 3 и 7 (используйте continue).
 */
 fun task3b() {
-    val m = arrayOf(1, 3, 13, 7, 13, 6, 7, -8)
-    for (i in m) {
-        if (i == 3 || i == 7) {
+    val numbers = arrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+    for (num in numbers) {
+        if (num == 3 || num == 7) {
             continue
         }
-        println(i)
+        println(num)
     }
 }
 
@@ -138,7 +142,7 @@ fun task3c() {
 fun task4a() {
     try {
         println("Enter a number")
-        val input =readLine()
+        val input = readLine()
         val a = input?.toInt()
     } catch (e: Exception) {
         println("Error $e")
