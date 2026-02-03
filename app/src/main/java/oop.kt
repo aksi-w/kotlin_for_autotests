@@ -16,13 +16,11 @@ fun main() {
 
     //Singleton.printMessage() - задание 3
 
-    /*
-    Задание 4
-    val person = Person()
+    //Задание 4
+    val person = Person("Polina", 21)
     println(person.getName())
     println(person.getAge())
-    println(person.name) // ошибка тк приватная переменная
-     */
+    // println(person.name) // ошибка тк приватная переменная
 
     /* Задание 5
     val person5 = Person5()
@@ -137,13 +135,10 @@ object Singleton {
 Создайте класс Person с приватными свойствами name, age и публичными методами getName() и getAge().
 Проверьте, что прямой доступ к этим свойствам невозможен извне класса.
  */
-class Person {
-    private var name: String = "Polina"
-    private var age: Int = 21
+class Person(private val name: String, private val age: Int) {
     fun getName(): String {
         return name
     }
-
     fun getAge(): Int {
         return age
     }
@@ -367,13 +362,8 @@ class BatFlyBehavior : FlyBehavior {
 }
 
 class Bat {
-    private var mammalBehavior: MammalBehavior = BatMammalBehavior()
-    private var flyBehavior: FlyBehavior = BatFlyBehavior()
-
-    init {
-        mammalBehavior = BatMammalBehavior()
-        flyBehavior = BatFlyBehavior()
-    }
+    private val mammalBehavior: MammalBehavior = BatMammalBehavior()
+    private val flyBehavior: FlyBehavior = BatFlyBehavior()
 
     fun performBreastfeed() {
         mammalBehavior.breastfeed()
